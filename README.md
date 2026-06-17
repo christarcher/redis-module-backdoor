@@ -10,11 +10,13 @@
 
 ## 前台执行
 
-system.exec是前台执行指令
+system.exec是前台执行指令, base64编码后输出结果, redis-cli终端里不方便查看有换行和终端描述符的结果, 所以base64一下
+
+stdout和stderr已经合并, 不用再2>&1
 
 ```shell
 127.0.0.1:6379> system.exec "123" "id"
-"uid=0(root) gid=0(root) groups=0(root)\n"
+"dWlkPTAocm9vdCkgZ2lkPTAocm9vdCkgZ3JvdXBzPTAocm9vdCk="
 ```
 
 **注意不要用来执行交互式或长时间挂起的指令, redis会阻塞, 导致业务完全崩溃**
